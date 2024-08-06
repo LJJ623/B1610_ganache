@@ -3,17 +3,24 @@ package org.example;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.Scanner;
 
 public class test2 {
 
     public static void main(String[] args) {
+        LocalTime currentTime = LocalTime.now();
+        if (!isWithinAllowedTime(currentTime)) {
+            System.out.println("当前时间不允许访问，程序终止。");
+            return;
+        }
+
         Scanner scanner = new Scanner(System.in);
-//        System.out.println("调用登录程序");
+        // System.out.println("调用登录程序");
         String username = UserAuth.login(scanner);
         if (username != null) {
             String permissionLevel = getPermissionLevel(username);
-//            System.out.println("您的权限等级是：" + permissionLevel);
+            // System.out.println("您的权限等级是：" + permissionLevel);
 
             // 提示用户输入想要访问的数据库
             System.out.println("请输入想要访问的数据库（A, B, C）:");
@@ -34,6 +41,16 @@ public class test2 {
                 System.out.println("权限不足");
             }
         }
+    }
+
+    private static boolean isWithinAllowedTime(LocalTime time) {
+        LocalTime morningStart = LocalTime.of(9, 0);
+        LocalTime morningEnd = LocalTime.of(12, 0);
+        LocalTime afternoonStart = LocalTime.of(14, 0);
+        LocalTime afternoonEnd = LocalTime.of(17, 0);
+
+        return (time.isAfter(morningStart) && time.isBefore(morningEnd)) ||
+                (time.isAfter(afternoonStart) && time.isBefore(afternoonEnd));
     }
 
     private static String getPermissionLevel(String username) {

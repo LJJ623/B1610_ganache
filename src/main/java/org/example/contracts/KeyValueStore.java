@@ -52,11 +52,13 @@ public class KeyValueStore extends Contract {
     }
 
     public RemoteCall<String> get(String key) {
-        Function function = new Function("get", 
+        Function function = new Function(
+                "get",
                 Arrays.<Type>asList(new Utf8String(key)),
                 Arrays.<TypeReference<?>>asList(new TypeReference<Utf8String>() {}));
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
+
 
     public static RemoteCall<KeyValueStore> deploy(Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
         return deployRemoteCall(KeyValueStore.class, web3j, credentials, gasPrice, gasLimit, BINARY, "");

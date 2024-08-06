@@ -10,7 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
         // Ganache默认的HTTP地址
-        String ganacheUrl = "http://113.54.199.66:7545";
+        String ganacheUrl = "http://113.54.211.176:7545";
 
         // 创建Web3j对象来连接Ganache
         Web3j web3j = Web3j.build(new HttpService(ganacheUrl));
