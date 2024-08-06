@@ -101,4 +101,9 @@ public class test1 {
     public static String getValueForKey(String key) throws Exception {
         return contract.get(key).send();
     }
+
+    public static String setValueForKey(String key, String value) throws Exception {
+        TransactionReceipt receipt = contract.set(key, value).send();
+        return receipt.getTransactionHash();
+    }
 }
